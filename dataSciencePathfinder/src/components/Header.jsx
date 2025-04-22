@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useRef, useEffect } from "react";
 import { Moon, Sun, Menu, X } from "lucide-react";
 import GoogleAuthModal from "./GoogleAuthModal";
 import { useAuth } from "../contexts/AuthContext";
@@ -9,8 +9,10 @@ import { useLocation } from 'react-router-dom';
 const Header = ({ darkMode, toggleDarkMode }) => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isAuthModalOpen, setIsAuthModalOpen] = useState(false);
+  const [isDropdownOpen, setIsDropdownOpen] = useState(false);
   const { currentUser, isAuthenticated } = useAuth();
   const location = useLocation();
+  const dropdownRef = useRef(null);
   
   // Toggle mobile menu
   const toggleMenu = () => {
@@ -32,10 +34,30 @@ const Header = ({ darkMode, toggleDarkMode }) => {
     try {
       await logout();
       setIsMenuOpen(false); // Close menu after logout
+      setIsDropdownOpen(false); // Close dropdown after logout
     } catch (error) {
       console.error("Error logging out:", error);
     }
   };
+
+  // Toggle dropdown
+  const toggleDropdown = () => {
+    setIsDropdownOpen(!isDropdownOpen);
+  };
+
+  // Close dropdown when clicking outside
+  useEffect(() => {
+    const handleClickOutside = (event) => {
+      if (dropdownRef.current && !dropdownRef.current.contains(event.target)) {
+        setIsDropdownOpen(false);
+      }
+    };
+
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutside);
+    };
+  }, []);
 
   // Common link class for desktop navigation
   const desktopLinkClass = `font-medium ${
@@ -45,7 +67,7 @@ const Header = ({ darkMode, toggleDarkMode }) => {
   } transition-colors`;
 
   // Common link class for dropdown items
-  const dropdownItemClass = `block px-4 py-2 text-sm ${
+  const dropdownItemClass = `block w-full text-left px-4 py-2 text-sm ${
     darkMode
       ? "text-gray-300 hover:bg-gray-700"
       : "text-gray-700 hover:bg-gray-100"
@@ -102,8 +124,9 @@ const Header = ({ darkMode, toggleDarkMode }) => {
             </Link>
 
             {isAuthenticated ? (
-              <div className="relative group">
+              <div className="relative" ref={dropdownRef}>
                 <button
+                  onClick={toggleDropdown}
                   className={`px-5 py-2 rounded-full ${
                     darkMode
                       ? "bg-blue-600 hover:bg-blue-700"
@@ -114,26 +137,36 @@ const Header = ({ darkMode, toggleDarkMode }) => {
                     currentUser?.email?.split("@")[0] ||
                     "Account"}
                 </button>
-                <div
-                  className={`absolute right-0 mt-2 w-48 py-2 rounded-md shadow-xl hidden group-hover:block ${
-                    darkMode
-                      ? "bg-gray-800 border border-gray-700"
-                      : "bg-white border border-gray-200"
-                  }`}
-                >
-                  <Link to="/applied-jobs" className={dropdownItemClass}>
-                    Applied Jobs
-                  </Link>
-                  <Link to="/powerbidashboard" className={dropdownItemClass}>
-                    Dashboard
-                  </Link>
-                  <button
-                    onClick={handleLogout}
-                    className={`${dropdownItemClass} w-full text-left`}
+                {isDropdownOpen && (
+                  <div
+                    className={`absolute right-0 mt-2 w-48 py-2 rounded-md shadow-xl z-50 ${
+                      darkMode
+                        ? "bg-gray-800 border border-gray-700"
+                        : "bg-white border border-gray-200"
+                    }`}
                   >
-                    Sign Out
-                  </button>
-                </div>
+                    <Link 
+                      to="/applied-jobs" 
+                      className={dropdownItemClass}
+                      onClick={() => setIsDropdownOpen(false)}
+                    >
+                      Applied Jobs
+                    </Link>
+                    <Link 
+                      to="/powerbidashboard" 
+                      className={dropdownItemClass}
+                      onClick={() => setIsDropdownOpen(false)}
+                    >
+                      Dashboard
+                    </Link>
+                    <button
+                      onClick={handleLogout}
+                      className={`${dropdownItemClass} w-full text-left`}
+                    >
+                      Sign Out
+                    </button>
+                  </div>
+                )}
               </div>
             ) : (
               <button
@@ -202,7 +235,11 @@ const Header = ({ darkMode, toggleDarkMode }) => {
             <a href="#" className={mobileLinkClass}>
               About Us
             </a>
-            <Link to="/powerbidashboard" className={mobileLinkClass}>
+            <Link 
+              to="/powerbidashboard" 
+              className={mobileLinkClass}
+              onClick={() => setIsMenuOpen(false)}
+            >
               Dashboard
             </Link>
 
@@ -213,10 +250,18 @@ const Header = ({ darkMode, toggleDarkMode }) => {
                     darkMode ? "border-gray-700" : "border-gray-200"
                   }`}
                 ></div>
-                <Link to="/profile" className={mobileLinkClass}>
+                <Link 
+                  to="/profile" 
+                  className={mobileLinkClass}
+                  onClick={() => setIsMenuOpen(false)}
+                >
                   Profile
                 </Link>
-                <Link to="/applied-jobs" className={mobileLinkClass}>
+                <Link 
+                  to="/applied-jobs" 
+                  className={mobileLinkClass}
+                  onClick={() => setIsMenuOpen(false)}
+                >
                   Applied Jobs
                 </Link>
                 <button

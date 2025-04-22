@@ -123,7 +123,7 @@ const AppliedJobs = ({darkMode}) => {
             {/* Navigation and level selection */}
             <div className="flex flex-col md:flex-row justify-between items-start md:items-center mb-8 space-y-4 md:space-y-0">
               <button
-                onClick={() => navigate('/apply-job')}
+                onClick={() => navigate('/skill-level')}
                 className="flex items-center px-4 py-2 rounded-lg bg-gray-700 hover:bg-gray-600 text-gray-200 transition-colors"
               >
                 <svg 
@@ -139,7 +139,7 @@ const AppliedJobs = ({darkMode}) => {
                     d="M10 19l-7-7m0 0l7-7m-7 7h18" 
                   />
                 </svg>
-                Back to Job Search
+                Back to skills
               </button>
               
               {/* Level selection buttons */}

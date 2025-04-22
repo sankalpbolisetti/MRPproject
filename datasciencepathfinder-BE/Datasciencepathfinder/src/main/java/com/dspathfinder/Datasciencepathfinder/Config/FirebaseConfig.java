@@ -15,7 +15,7 @@ public class FirebaseConfig {
     @PostConstruct
     public void initFirebase() throws IOException {
         FileInputStream serviceAccount =
-                new FileInputStream("src/main/resources/serviceAccountKey.json");
+                new FileInputStream("DatasciencePathfinder/src/main/resources/serviceAccountKey.json");
 
         FirebaseOptions options = FirebaseOptions.builder()
                 .setCredentials(GoogleCredentials.fromStream(serviceAccount))
