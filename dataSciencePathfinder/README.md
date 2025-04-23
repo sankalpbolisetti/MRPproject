@@ -39,9 +39,7 @@ The Employability Analytics Application is a comprehensive platform designed to 
 
 5. **Geographic Opportunity Explorer**
    - Job opportunities across locations
-   - Cost of living considerations
    - Industry concentration analysis
-
 
 ### 👥 Target Users
 - Recent graduates
