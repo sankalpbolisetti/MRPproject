@@ -42,15 +42,6 @@ The Employability Analytics Application is a comprehensive platform designed to 
    - Cost of living considerations
    - Industry concentration analysis
 
-6. **Education and Certification Advisor**
-   - Tailored educational program recommendations
-   - Certification matching based on career goals
-
-7. **Personalized Action Plan**
-   - Customized career development roadmap
-   - Skill development strategies
-   - Networking opportunities
-   - Job search guidance
 
 ### 👥 Target Users
 - Recent graduates
@@ -58,10 +49,65 @@ The Employability Analytics Application is a comprehensive platform designed to 
 - Career explorers interested in data science
 
 ### 🛠 Technology Stack
-*(Note: Specific technologies to be determined in future development stages)*
+Frontend
+React.js – JavaScript library for building user interfaces
+Tailwind CSS – Utility-first CSS framework for styling
+Axios – Promise-based HTTP client for API requests
+Vite – Fast build tool and development server
 
-### 🚀 Getting Started
-*(Detailed setup instructions to be added in future iterations)*
+🔹 Backend
+Spring Boot – Framework for rapid backend development
+Spring Data JPA – ORM (Object-Relational Mapping) for managing database interactions
+Spring Security – Security framework to protect and authorize API endpoints
+Maven – Project and dependency management build tool
+Project Lombok – Reduces boilerplate code with annotations for model classes
+
+🔹 Database
+MySQL – Relational database management system for data storage
+
+🔹 Development Tools
+Postman – API testing and data seeding tool
+VS Code – Code editor used for frontend development
+IntelliJ IDEA – IDE used for backend development with Spring Boot
+
+🔹 API Used
+Rapid API (To Fetch jobs posted within 24 hrs)
+
+🔹 Services Used
+Firebase (Used for Authentication)
+EmailJS (Used for contact support)
+
+### 🚀 How to Run the Application
+Follow the steps below to run both the frontend and backend applications locally:
+
+🔸 1. Start the Frontend Application
+Open VS Code
+Navigate to the project folder (if not already there):
+cd dataSciencePathFinder
+Run the development server:
+npm install  # Only required for first-time setup
+npm run dev
+Note: The frontend runs by default on http://localhost:5173. If this port is changed, make sure to update the CORS configuration in the backend accordingly.
+
+🔸 2. Ensure MySQL is Running
+Open MySQL Workbench or your preferred DB management tool.
+
+Make sure the MySQL server is running before starting the backend.
+
+Confirm database configurations in the backend application.properties file (host, port, user, password, DB name).
+
+🔸 3. Start the Backend Application
+Open IntelliJ IDEA
+
+Load the backend project
+
+Locate and run the main class: DatasciencepathfinderApplication.java
+The backend server will start on port 1616 (configured in application.properties).
+🔧 Default Spring Boot port is 8080, but it's customized to run on 1616 for this project.
+
+🔸 4. Open the Application
+Once both frontend and backend servers are running, open your browser and navigate to:
+http://localhost:5173
 
 ### 🤝 Contributing
 We welcome contributions! If you're interested in improving the Employability Analytics Application, please reach out to the project team.
@@ -70,9 +116,8 @@ We welcome contributions! If you're interested in improving the Employability An
 - Coursera. (2023). Data Science Career Roadmap
 - Dar, P. (2020). Transitioning into Data Science
 - Eliacik, E. (2023). Is Data Science a Good Career?
-
-### 📜 License
-*(License information to be added)*
+- Dataset: glassdoor_datascience_skills_with_udemy.csv
+This dataset contains extracted and combined information related to data science job skills listed on Glassdoor and matched with relevant Udemy courses. It was curated for educational and analytical purposes to explore industry demand and learning resources alignment.
 
 ### 🙏 Acknowledgements
 Project developed by Team 08 for IS-5960-Masters Research Project at Saint Louis University's School of Professional Studies.
